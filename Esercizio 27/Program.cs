@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-Raccolta r = new Raccolta();
+﻿Raccolta r = new Raccolta();
 
 r.Add(new Triangolo("Scaleno", 4, 4, 5, 6));
 r.Add(new Triangolo("Isoscele", 4, 5, 6));
@@ -143,16 +141,19 @@ class Triangolo : FiguraGeometrica, IComparable
     }
     public override bool Equals(object obj)
     {
-        if (this.GetType() != obj.GetType())
+        try
         {
-            throw new FiguraErrata();
+            Triangolo figura2 = (Triangolo)obj;
+            if (figura2.area == this.area)
+            {
+                return true;
+            }
+            return false;
         }
-        Triangolo figura2 = (Triangolo)obj;
-        if (figura2.area == this.area)
+        catch (Exception)
         {
-            return true;
+            return false;
         }
-        return false;
     }
     public override FiguraGeometrica Clone()
     {
@@ -181,7 +182,6 @@ class Triangolo : FiguraGeometrica, IComparable
         }
     }
 }
-
 class Rettangolo : FiguraGeometrica
 {
     public Rettangolo(double lato)
@@ -205,11 +205,7 @@ class Rettangolo : FiguraGeometrica
     }
     public override bool Equals(object obj)
     {
-        if (this.GetType() != obj.GetType())
-        {
-            throw new FiguraErrata();
-        }
-        
+        Rettangolo figura2 = (Rettangolo)obj;
         if (figura2.area == this.area)
         {
             return true;
@@ -266,19 +262,6 @@ class Rombo : Quadrato
     {
         area = (DiagMaggiore * DiagMinore) / 2;
         return area;
-    }
-    public override bool Equals(object obj)
-    {
-        if (this.GetType() != obj.GetType())
-        {
-            throw new FiguraErrata();
-        }
-        Rombo figura2 = (Rombo)obj;
-        if (figura2.area == this.area)
-        {
-            return true;
-        }
-        return false;
     }
     public override string ToString()
     {
@@ -463,24 +446,5 @@ class Raccolta
             s += item.ToString() + "\n----------------\n";
         }
         return s;
-    }
-    
-}
-internal class FiguraErrata : Exception
-{
-    public FiguraErrata()
-    {
-    }
-
-    public FiguraErrata(string? message) : base(message)
-    {
-    }
-
-    public FiguraErrata(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-
-    protected FiguraErrata(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
     }
 }

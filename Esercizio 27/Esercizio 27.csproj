@@ -8,4 +8,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="C:\Users\utente\Desktop\scuola loris\2021-2022\Informatica\Esercizio 27.cs" Link="Esercizio 27.cs" />
+  </ItemGroup>
+
 </Project>
